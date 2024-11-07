@@ -1,3 +1,6 @@
+using ToDoList.Domain.Validators;
+using ToDoList.Domain.Exceptions;
+
 namespace ToDoList.Domain.Entities
 {
     public class User : Base
@@ -18,6 +21,49 @@ namespace ToDoList.Domain.Entities
             Name = name;
             Email = email;
             Password = password;
+            _errors = new List<string>();
+
+            Validate();
+
+        }
+
+        public void ChangeName(string name)
+        {
+            Name = name;
+            Validate();
+        }
+
+        public void ChangeEmail(string email)
+        {
+            Email = email;
+            Validate();
+        }
+
+        public void ChangePassword(string password)
+        {
+            Password = password;
+            Validate();
+        }
+        
+
+        public override bool Validate()
+        {
+            var validator = new UserValidator();
+            var validation = validator.Validate(this);
+
+            if (!validation.IsValid)
+            {
+                foreach (var error in validation.Errors)
+                {
+                    _errors.Add(error.ErrorMessage);
+                    
+                }
+                
+                throw new DomainException("Validation Failed", _errors);
+                
+            }
+
+            return true;
         }
     }
 }

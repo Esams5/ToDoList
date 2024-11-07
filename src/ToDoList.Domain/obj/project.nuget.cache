@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ajA9Alc4K/M=",
+  "dgSpecHash": "pGKW4anybg8=",
   "success": true,
   "projectFilePath": "/home/esdras/ToDoList/src/ToDoList.Domain/ToDoList.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/esdras/.nuget/packages/fluentvalidation/11.10.0/fluentvalidation.11.10.0.nupkg.sha512"
+  ],
   "logs": []
 }
