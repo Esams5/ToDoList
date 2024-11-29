@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Context\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ToDoList.Domain\ToDoList.Domain.csproj" />
-    <ProjectReference Include="..\ToDoList.Infra.Data\ToDoList.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
