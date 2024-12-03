@@ -10,29 +10,38 @@ public class UserMap : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("User");
-            
-        builder.HasKey(u => u.Id);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(u => u.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnType("BIGINT");
+        builder.Property(x => x.Id)
+            .UseMySqlIdentityColumn()
+            .HasColumnType("BIGINT")
+            .HasColumnName("id");
 
-        builder.Property(u => u.Name)
+        builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(80)
             .HasColumnName("name")
-            .HasColumnType("VARCHAR(80)");
-            
-        builder.Property(u => u.Password)
-            .IsRequired()
-            .HasMaxLength(30)
-            .HasColumnName("password")
-            .HasColumnType("VARCHAR(30)");
+            .HasColumnType("varchar(100)")
+            .HasMaxLength(100);
 
-        builder.Property(u => u.Email)
+        builder.Property(x => x.Email)
             .IsRequired()
-            .HasMaxLength(180)
             .HasColumnName("email")
-            .HasColumnType("VARCHAR(180)");
+            .HasColumnType("varchar(180)")
+            .HasMaxLength(180);
+        
+        builder.Property(x => x.Password)
+            .IsRequired()
+            .HasColumnName("password")
+            .HasColumnType("varchar(180)")
+            .HasMaxLength(180);
+
+        builder.HasMany(x => x.AssignmentLists)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(x => x.Assignments)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId);
     }
 }

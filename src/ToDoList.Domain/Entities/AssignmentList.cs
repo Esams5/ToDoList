@@ -1,3 +1,5 @@
+using ToDoList.Domain.Validators;
+using ToDoList.Domain.Exceptions;
 namespace ToDoList.Domain.Entities;
 
 public class AssignmentList : Base
@@ -17,10 +19,23 @@ public class AssignmentList : Base
     {
         Name = name;
         UserId = userId;
+        Assignments = new List<Assignment>();
+        _errors = new List<string>();
+        Validate();
     }
 
     public override bool Validate()
     {
-        throw new NotImplementedException();
+        var validator = new AssignmentListValidator();
+        var validation = validator.Validate(this);
+
+        if (!validation.IsValid)
+        {
+            foreach (var error in validation.Errors)
+                _errors.Add(error.ErrorMessage);
+        }
+        throw new DomainException("Alguns campos estão incorretos" + _errors);
+
+        return true;
     }
 }

@@ -11,6 +11,9 @@ namespace ToDoList.Domain.Entities
         
         public string Password { get; private set; }
 
+        public ICollection<Assignment> Assignments { get; private set; }
+        public ICollection<AssignmentList> AssignmentLists { get; private set; }
+
         public User()
         {
             
