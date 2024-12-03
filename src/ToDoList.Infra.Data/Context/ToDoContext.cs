@@ -14,6 +14,7 @@ public class ToDoContext : DbContext
     public ToDoContext(DbContextOptions<ToDoContext> options) : base(options)
     {
         
+        
     }
     
     private readonly string _connectionString = "Server=localhost;Database=testeum;Uid=SamuelEsdras;Pwd=05072003;";
