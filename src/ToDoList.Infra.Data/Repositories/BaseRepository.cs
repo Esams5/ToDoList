@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ToDoList.Domain.Contracts;
 using ToDoList.Domain.Entities;
 using ToDoList.Infra.Data.Context;
@@ -16,26 +17,38 @@ public class BaseRepository<T> : IBaseRepository<T> where T : Base
     
     public async Task<T> CreateAsync(T obj)
     {
-        throw new NotImplementedException();
+        _context.Add(obj);
+        await _context.SaveChangesAsync();
+        return obj;
     }
 
     public async Task<T> UpdateAsync(T obj)
     {
-        throw new NotImplementedException();
+        _context.Entry(obj).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return obj;
     }
 
     public async Task<T> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var obj = await _context.Set<T>()
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .ToListAsync();
+        return obj.FirstOrDefault();
     }
 
     public async Task<List<T>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Set<T>()
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task RemoveAsync(int id)
     {
-        throw new NotImplementedException();
+        var obj = await GetByIdAsync(id);
+        _context.Remove(obj);
+        await _context.SaveChangesAsync();
     }
 }
