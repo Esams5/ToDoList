@@ -8,4 +8,5 @@ public interface IAssignmentListRepository : IBaseRepository<AssignmentList>
     Task<AssignmentList> GetByNameAndIdAsync(string name, int id);
     Task<List<AssignmentList>> SearchByNameAsync(string name);
     
+    
 }
