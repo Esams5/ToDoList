@@ -8,16 +8,20 @@ namespace ToDoList.Infra.Data.Repositories;
 
 public class AssignmentRepository : BaseRepository<Assignment>, IAssignmentRepository
 {
+
+    private readonly ToDoContext _context;
+
     public AssignmentRepository(ToDoContext context) : base(context)
     {
+        _context = context;
     }
 
-    public Task<Assignment> GetByDescriptionAsync(string description)
+    public async Task<Assignment> GetByDescriptionAsync(string description)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Assignment>> GetConcluedAsync()
+    public async Task<List<Assignment>> GetConcluedAsync()
     {
         throw new NotImplementedException();
     }
