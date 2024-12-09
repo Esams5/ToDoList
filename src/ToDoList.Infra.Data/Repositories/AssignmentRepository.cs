@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using ToDoList.Domain.Contracts;
 using ToDoList.Domain.Entities;
-using ToDoList.Infra.Data;
+
 using ToDoList.Infra.Data.Context;
 
 
@@ -16,13 +17,28 @@ public class AssignmentRepository : BaseRepository<Assignment>, IAssignmentRepos
         _context = context;
     }
 
+    public async Task<Assignment> GetByIdAsync(int id, int userId)
+    {
+        var assigment = await _context.Set<Assignment>().Where(
+                x => x.Id == id && x.UserId == userId)
+            .AsNoTracking()
+            .ToListAsync();
+        return assigment.FirstOrDefault();
+    }
+
     public async Task<Assignment> GetByDescriptionAsync(string description)
     {
-        throw new NotImplementedException();
+        var assignmentdescription = await _context.Set<Assignment>().AsNoTracking().Where(
+                x => x.Description == description)
+            .ToListAsync();
+        return assignmentdescription.FirstOrDefault();
     }
 
     public async Task<List<Assignment>> GetConcluedAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Assignments.Where(
+            x => x.Concluded == "true")
+            .AsNoTracking()
+            .ToListAsync();
     }
 }
