@@ -1,8 +1,7 @@
 using ToDoList.Application.DTO;
-
 namespace ToDoList.Application.Interfaces;
 
-public interface IAssignmentList
+public interface IAssignmentListService
 {
     Task<AssignmentListDTO> Create(AssignmentListDTO assignmentListDto);
     Task<AssignmentListDTO> Update(AssignmentListDTO assignmentListDto);
