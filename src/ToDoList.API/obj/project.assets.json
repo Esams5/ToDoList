@@ -584,8 +584,7 @@
           "FluentValidation": "11.11.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.6",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "8.0.6",
-          "ToDoList.Domain": "1.0.0",
-          "ToDoList.Infra.Data": "1.0.0"
+          "ToDoList.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ToDoList.Application.dll": {}
@@ -1770,19 +1769,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Samuel\\.nuget\\packages\\": {}
+    "/home/esdras/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.API\\ToDoList.API.csproj",
+      "projectUniqueName": "/home/esdras/ToDoList/src/ToDoList.API/ToDoList.API.csproj",
       "projectName": "ToDoList.API",
-      "projectPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.API\\ToDoList.API.csproj",
-      "packagesPath": "C:\\Users\\Samuel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.API\\obj\\",
+      "projectPath": "/home/esdras/ToDoList/src/ToDoList.API/ToDoList.API.csproj",
+      "packagesPath": "/home/esdras/.nuget/packages/",
+      "outputPath": "/home/esdras/ToDoList/src/ToDoList.API/obj/",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
-        "C:\\Users\\Samuel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/esdras/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1794,11 +1794,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Application\\ToDoList.Application.csproj": {
-              "projectPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Application\\ToDoList.Application.csproj"
+            "/home/esdras/ToDoList/src/ToDoList.Application/ToDoList.Application.csproj": {
+              "projectPath": "/home/esdras/ToDoList/src/ToDoList.Application/ToDoList.Application.csproj"
             },
-            "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Infra.Data\\ToDoList.Infra.Data.csproj": {
-              "projectPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Infra.Data\\ToDoList.Infra.Data.csproj"
+            "/home/esdras/ToDoList/src/ToDoList.Infra.Data/ToDoList.Infra.Data.csproj": {
+              "projectPath": "/home/esdras/ToDoList/src/ToDoList.Infra.Data/ToDoList.Infra.Data.csproj"
             }
           }
         }
@@ -1846,7 +1846,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

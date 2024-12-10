@@ -12,7 +12,7 @@ using ToDoList.Infra.Data.Context;
 namespace ToDoList.Infra.Data.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20241207205330_InitialMigration")]
+    [Migration("20241210114119_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,28 +27,31 @@ namespace ToDoList.Infra.Data.Migrations
 
             modelBuilder.Entity("ToDoList.Domain.Entities.Assignment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("BIGINT");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("AssignmentListId")
+                    b.Property<int?>("AssignmentListId")
                         .HasColumnType("int");
 
                     b.Property<string>("Concluded")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("VARCHAR(5)")
+                        .HasDefaultValue("False");
 
-                    b.Property<DateTime>("ConcluedAt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateTime?>("ConcluedAt")
+                        .HasColumnType("DATETIME");
 
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR(100)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("BIGINT");
@@ -59,7 +62,7 @@ namespace ToDoList.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Assignment");
+                    b.ToTable("Assignment", (string)null);
                 });
 
             modelBuilder.Entity("ToDoList.Domain.Entities.AssignmentList", b =>
@@ -72,7 +75,8 @@ namespace ToDoList.Infra.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(80)
+                        .HasColumnType("VARCHAR(80)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("BIGINT");
@@ -81,7 +85,7 @@ namespace ToDoList.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AssignmentList");
+                    b.ToTable("AssignmentList", (string)null);
                 });
 
             modelBuilder.Entity("ToDoList.Domain.Entities.User", b =>
@@ -120,8 +124,7 @@ namespace ToDoList.Infra.Data.Migrations
                     b.HasOne("ToDoList.Domain.Entities.AssignmentList", "AssignmentList")
                         .WithMany("Assignments")
                         .HasForeignKey("AssignmentListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ToDoList.Domain.Entities.User", "User")
                         .WithMany("Assignments")

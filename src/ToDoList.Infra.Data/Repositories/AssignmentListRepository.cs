@@ -18,7 +18,7 @@ public class AssignmentListRepository : BaseRepository<AssignmentList>, IAssignm
     public async Task<AssignmentList> GetByNameAsync(string name)
     {
         var assignment = await _context.AssignmentLists.Where(
-            x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
             .AsNoTracking()
             .ToListAsync();
         

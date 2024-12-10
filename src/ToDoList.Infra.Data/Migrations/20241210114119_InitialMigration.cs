@@ -40,7 +40,7 @@ namespace ToDoList.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
+                    Name = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<long>(type: "BIGINT", nullable: false)
                 },
@@ -60,16 +60,16 @@ namespace ToDoList.Infra.Data.Migrations
                 name: "Assignment",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "BIGINT", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<long>(type: "BIGINT", nullable: false),
-                    AssignmentListId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "longtext", nullable: false)
+                    AssignmentListId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Concluded = table.Column<string>(type: "longtext", nullable: false)
+                    Concluded = table.Column<string>(type: "VARCHAR(5)", nullable: false, defaultValue: "False")
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConcluedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    ConcluedAt = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    Deadline = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,7 +79,7 @@ namespace ToDoList.Infra.Data.Migrations
                         column: x => x.AssignmentListId,
                         principalTable: "AssignmentList",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Assignment_User_UserId",
                         column: x => x.UserId,
