@@ -489,6 +489,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.10",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
+          "ToDoList.Application": "1.0.0",
           "ToDoList.Domain": "1.0.0"
         },
         "compile": {
@@ -1367,5 +1368,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1108",
+      "level": "Error",
+      "message": "Cycle detected. \r\n  ToDoList.Application -> ToDoList.Infra.Data -> ToDoList.Application.",
+      "libraryId": "ToDoList.Application",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
