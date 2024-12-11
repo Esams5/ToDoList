@@ -13,7 +13,6 @@
         "packagesPath": "/home/esdras/.nuget/packages/",
         "outputPath": "/home/esdras/ToDoList/src/ToDoList.API/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/esdras/.nuget/NuGet/NuGet.Config"
         ],
@@ -92,7 +91,6 @@
         "packagesPath": "/home/esdras/.nuget/packages/",
         "outputPath": "/home/esdras/ToDoList/src/ToDoList.Application/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/esdras/.nuget/NuGet/NuGet.Config"
         ],
@@ -177,7 +175,6 @@
         "packagesPath": "/home/esdras/.nuget/packages/",
         "outputPath": "/home/esdras/ToDoList/src/ToDoList.Domain/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/esdras/.nuget/NuGet/NuGet.Config"
         ],
@@ -242,7 +239,6 @@
         "packagesPath": "/home/esdras/.nuget/packages/",
         "outputPath": "/home/esdras/ToDoList/src/ToDoList.Infra.Data/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/home/esdras/.nuget/NuGet/NuGet.Config"
         ],

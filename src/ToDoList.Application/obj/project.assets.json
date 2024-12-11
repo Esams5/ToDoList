@@ -725,7 +725,6 @@
       "packagesPath": "/home/esdras/.nuget/packages/",
       "outputPath": "/home/esdras/ToDoList/src/ToDoList.Application/obj/",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/home/esdras/.nuget/NuGet/NuGet.Config"
       ],
