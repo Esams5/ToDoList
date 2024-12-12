@@ -150,19 +150,19 @@ public class UserController : ControllerBase
     {
         try
         {
-            var Users = await _userService.GetUsersAsync();
-            if (Users.Count == 0)
+            var users = await _userService.GetUsersAsync();
+            if (users.Count == 0)
                 return Ok(new ResultViewModel
                 {
                     Message = "User Not Found",
                     Success = false,
-                    Data = Users
+                    Data = users
                 });
             return Ok(new ResultViewModel
             {
                 Message = "User Retrieved",
                 Success = true,
-                Data = Users
+                Data = users
             });
         }
 

@@ -5,7 +5,7 @@ using ToDoList.Application.Services;
 using ToDoList.Domain.Contracts;
 using ToDoList.Infra.Data.Repositories;
 
-namespace ToDoList.Infra.Data.Configuration;
+namespace ToDoList.Infra.Data;
 
 public static class DependencyInjection
 {
@@ -27,4 +27,5 @@ public static class DependencyInjection
 
         return services;
     }
+
 }

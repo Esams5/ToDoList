@@ -12,8 +12,8 @@ using ToDoList.Infra.Data.Context;
 namespace ToDoList.Infra.Data.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20241212180121_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241212225035_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

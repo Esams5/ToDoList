@@ -662,10 +662,7 @@
           "ToDoList.Domain": "1.0.0"
         },
         "runtime": {
-          "ToDoList.Application.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ToDoList.Application.dll": {}
         }
       },
       "ToDoList.Domain/1.0.0": {
@@ -673,10 +670,7 @@
           "FluentValidation": "11.11.0"
         },
         "runtime": {
-          "ToDoList.Domain.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ToDoList.Domain.dll": {}
         }
       }
     }

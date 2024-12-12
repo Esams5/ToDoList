@@ -71,7 +71,7 @@ public class UserService : IUserService
 
     public async Task<UserDTO> GetEmailAsync(string email)
     {
-        var user = _userRepository.GetByEmailAsync(email);
+        var user = await _userRepository.GetByEmailAsync(email);
         return _mapper.Map<UserDTO>(user);
     }
 

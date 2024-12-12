@@ -17,7 +17,7 @@ using ToDoList.Application.Interfaces;
 using ToDoList.Application.Services;
 using ToDoList.Domain.Contracts;
 using ToDoList.Domain.Entities;
-using ToDoList.Infra.Data.Configuration;
+using ToDoList.Infra.Data;
 using ToDoList.Infra.Data.Context;
 using ToDoList.Infra.Data.Repositories;
 
@@ -76,10 +76,11 @@ void AutoMapperDependenceInjection()
 {
     var autoMapperConfig = new MapperConfiguration(cfg =>
     {
+        // Mapeamentos existentes
         cfg.CreateMap<User, UserDTO>().ReverseMap();
         cfg.CreateMap<CreateUserViewModel, UserDTO>().ReverseMap();
         cfg.CreateMap<UpdateUserViewModel, UserDTO>().ReverseMap();
-        
+
         cfg.CreateMap<Assignment, AssignmentDTO>().ReverseMap();
         cfg.CreateMap<CreateAssignmentViewModel, AssignmentDTO>().ReverseMap();
         cfg.CreateMap<UpdateAssignmentViewModel, AssignmentDTO>().ReverseMap();
@@ -89,17 +90,21 @@ void AutoMapperDependenceInjection()
         cfg.CreateMap<UpdateAssignmentListViewModel, AssignmentListDTO>().ReverseMap();
 
         cfg.CreateMap<LoginDTO, LoginViewModel>().ReverseMap();
+
+        // Mapeamento direto entre CreateUserViewModel e User
+        cfg.CreateMap<CreateUserViewModel, User>();
     });
-    
+
+    builder.Services.AddSingleton(autoMapperConfig.CreateMapper());
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
     builder.Services.AddScoped<IAssignmentListRepository, AssignmentListRepository>();
-    builder.Services.AddSingleton(autoMapperConfig.CreateMapper());
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IAssignmentService, AssignmentServices>();
     builder.Services.AddScoped<IAssignmentListService, AssignmentListService>();
     builder.Services.AddScoped<IAuthenticateUser, AuthenticateUserService>();
 }
+
 
 builder.Services.AddSingleton(d => builder.Configuration);
 
