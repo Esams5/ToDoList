@@ -13,9 +13,13 @@ using ToDoList.API.ViewModels.AssignmentViewModel;
 using ToDoList.API.ViewModels.UserViewModel;
 using ToDoList.Application.Configuration;
 using ToDoList.Application.DTO;
+using ToDoList.Application.Interfaces;
+using ToDoList.Application.Services;
+using ToDoList.Domain.Contracts;
 using ToDoList.Domain.Entities;
 using ToDoList.Infra.Data.Configuration;
 using ToDoList.Infra.Data.Context;
+using ToDoList.Infra.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,7 +90,15 @@ void AutoMapperDependenceInjection()
 
         cfg.CreateMap<LoginDTO, LoginViewModel>().ReverseMap();
     });
+    
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+    builder.Services.AddScoped<IAssignmentListRepository, AssignmentListRepository>();
     builder.Services.AddSingleton(autoMapperConfig.CreateMapper());
+    builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IAssignmentService, AssignmentServices>();
+    builder.Services.AddScoped<IAssignmentListService, AssignmentListService>();
+    builder.Services.AddScoped<IAuthenticateUser, AuthenticateUserService>();
 }
 
 builder.Services.AddSingleton(d => builder.Configuration);
