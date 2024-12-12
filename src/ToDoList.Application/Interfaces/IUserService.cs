@@ -11,6 +11,6 @@ public interface IUserService
     Task<UserDTO> GetUserAsync(int userid);
     Task<List<UserDTO>> GetUsersAsync();
     Task<UserDTO> GetEmailAsync(string email);
-    Task<UserDTO> SearchEmailAsync(string username);
+    Task<List<UserDTO>> SearchEmailAsync(string username);
     
 }

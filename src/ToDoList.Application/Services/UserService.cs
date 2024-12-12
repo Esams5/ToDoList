@@ -75,10 +75,9 @@ public class UserService : IUserService
         return _mapper.Map<UserDTO>(user);
     }
 
-    public async Task<UserDTO> SearchEmailAsync(string username)
+    public async Task<List<UserDTO>> SearchEmailAsync(string username)
     {
         var users = await _userRepository.SearchByEmailAsync(username);
-        
-        return _mapper.Map<UserDTO>(users);
+        return _mapper.Map<List<UserDTO>>(users);
     }
 }

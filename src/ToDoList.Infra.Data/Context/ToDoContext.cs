@@ -17,7 +17,7 @@ public class ToDoContext : DbContext
         
     }
     
-    private readonly string _connectionString = "Server=localhost;Database=todoapi;Uid=SamuelEsdras;Pwd=05072003;";
+    private readonly string _connectionString = "Server=localhost;Database=isaac;Uid=SamuelEsdras;Pwd=05072003;";
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)

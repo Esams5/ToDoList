@@ -1,18 +1,42 @@
+using System.Text;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ScottBrady91.AspNetCore.Identity;
+using ToDoList.API.Token;
+using ToDoList.API.ViewModels;
+using ToDoList.API.ViewModels.AssignmentListViewModel;
+using ToDoList.API.ViewModels.AssignmentViewModel;
+using ToDoList.API.ViewModels.UserViewModel;
+using ToDoList.Application.Configuration;
+using ToDoList.Application.DTO;
+using ToDoList.Domain.Entities;
+using ToDoList.Infra.Data.Configuration;
+using ToDoList.Infra.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// injeção de dependência
+builder.Services.AddInfraestructure(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "ToDO",
+        Title = "ToDoList",
         Version = "v1",
-        Description = "Lista de Tarefas"
+        //Description = ""
     });
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
@@ -42,6 +66,60 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+AutoMapperDependenceInjection();
+
+void AutoMapperDependenceInjection()
+{
+    var autoMapperConfig = new MapperConfiguration(cfg =>
+    {
+        cfg.CreateMap<User, UserDTO>().ReverseMap();
+        cfg.CreateMap<CreateUserViewModel, UserDTO>().ReverseMap();
+        cfg.CreateMap<UpdateUserViewModel, UserDTO>().ReverseMap();
+        
+        cfg.CreateMap<Assignment, AssignmentDTO>().ReverseMap();
+        cfg.CreateMap<CreateAssignmentViewModel, AssignmentDTO>().ReverseMap();
+        cfg.CreateMap<UpdateAssignmentViewModel, AssignmentDTO>().ReverseMap();
+
+        cfg.CreateMap<AssignmentList, AssignmentListDTO>().ReverseMap();
+        cfg.CreateMap<CreateAssignmentListViewModel, AssignmentListDTO>().ReverseMap();
+        cfg.CreateMap<UpdateAssignmentListViewModel, AssignmentListDTO>().ReverseMap();
+
+        cfg.CreateMap<LoginDTO, LoginViewModel>().ReverseMap();
+    });
+    builder.Services.AddSingleton(autoMapperConfig.CreateMapper());
+}
+
+builder.Services.AddSingleton(d => builder.Configuration);
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
+
+builder.Services.AddDbContext<ToDoContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+
+var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KeyConfig.Secret));
+
+builder.Services.AddAuthentication(authOptions =>
+{
+    authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer("Bearer", options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        IssuerSigningKey = secretKey,
+        ValidateAudience = false,
+        ValidateIssuer = false
+    };
+});
 
 var app = builder.Build();
 
@@ -54,8 +132,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
-
+app.MapControllers();
 
 app.Run();
-

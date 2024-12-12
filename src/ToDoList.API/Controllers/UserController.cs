@@ -43,7 +43,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [Authorize]
+    
     [HttpPut]
     [Route("/api/v1/users/update")]
     public async Task<IActionResult> Update([FromBody] UpdateUserViewModel userViewModel)
@@ -70,7 +70,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [Authorize]
+    
     [HttpDelete]
     [Route("/api/v1/users/remove{id}")]
     public async Task<IActionResult> Remove(int id)
@@ -104,7 +104,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [Authorize]
+    
     [HttpGet]
     [Route("/api/v1/users/get/{id}")]
     public async Task<IActionResult> GetUser(int id)
@@ -131,6 +131,108 @@ public class UserController : ControllerBase
         {
             return BadRequest(ResultViewModel.DomainErrorMessage(ex.Message, ex.Errors));
         }
+        catch (Exception)
+        {
+            return StatusCode(500, ResultViewModel.ApplicationErrorMessage());
+        }
+    }
+    
+    
+    [HttpGet]
+    [Route("/api/v1/users/get-all")]
+    public async Task<IActionResult> GetUsers()
+    {
+        try
+        {
+            var Users = await _userService.GetUsersAsync();
+            if (Users.Count == 0)
+                return Ok(new ResultViewModel
+                {
+                    Message = "User Not Found",
+                    Success = false,
+                    Data = Users
+                });
+            return Ok(new ResultViewModel
+            {
+                Message = "User Retrieved",
+                Success = true,
+                Data = Users
+            });
+        }
+
+        catch (DomainException ex)
+        {
+            return BadRequest(ResultViewModel.DomainErrorMessage(ex.Message, ex.Errors));
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, ResultViewModel.ApplicationErrorMessage());
+        }
+    }
+
+    
+    [HttpGet]
+    [Route("/api/v1/users/get-by-email")]
+    public async Task<IActionResult> GetEmail([FromQuery] string email)
+    {
+        try
+        {
+            var user = await _userService.GetEmailAsync(email);
+
+            if (user == null)
+                return Ok(new ResultViewModel
+                {
+                    Message = "User Not Found",
+                    Success = false,
+                    Data = user
+                });
+
+            return Ok(new ResultViewModel
+            {
+                Message = "User Retrieved",
+                Success = true,
+                Data = user
+            });
+        }
+        catch (DomainException ex)
+        {
+            return BadRequest(ResultViewModel.DomainErrorMessage(ex.Message, ex.Errors));
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, ResultViewModel.ApplicationErrorMessage());
+        }
+        
+    }
+
+    
+    [HttpGet]
+    [Route("/api/v1/users/search-by-email")]
+    public async Task<IActionResult> SearchByEmail([FromQuery] string email)
+    {
+        try
+        {
+            var users = await _userService.SearchEmailAsync(email);
+
+            if (users.Count == 0)
+                return Ok(new ResultViewModel
+                {
+                    Message = "User Not Found",
+                    Success = false,
+                    Data = users
+                });
+            return Ok(new ResultViewModel
+            {
+                Message = "User Retrieved",
+                Success = true,
+                Data = users
+            });
+        }
+        catch (DomainException ex)
+        {
+            return BadRequest(ResultViewModel.DomainErrorMessage(ex.Message, ex.Errors));
+        }
+
         catch (Exception)
         {
             return StatusCode(500, ResultViewModel.ApplicationErrorMessage());
