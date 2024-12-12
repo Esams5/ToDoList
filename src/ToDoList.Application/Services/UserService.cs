@@ -22,7 +22,7 @@ public class UserService : IUserService
     }
 
 
-    public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
+    public async Task<UserDTO> CreateUserAsync(User userDto)
     {
         var exist = await _userRepository.GetByEmailAsync(userDto.Email);
 
@@ -37,7 +37,7 @@ public class UserService : IUserService
         return _mapper.Map<UserDTO>(userCreated);
     }
 
-    public async Task<UserDTO> UpdateUserAsync(UserDTO userDto)
+    public async Task<UserDTO> UpdateUserAsync(User userDto)
     {
         var exist = await _userRepository.GetByIdAsync(userDto.Id);
 

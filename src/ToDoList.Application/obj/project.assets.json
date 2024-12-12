@@ -714,19 +714,19 @@
     ]
   },
   "packageFolders": {
-    "/home/esdras/.nuget/packages/": {}
+    "C:\\Users\\Samuel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/esdras/ToDoList/src/ToDoList.Application/ToDoList.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Application\\ToDoList.Application.csproj",
       "projectName": "ToDoList.Application",
-      "projectPath": "/home/esdras/ToDoList/src/ToDoList.Application/ToDoList.Application.csproj",
-      "packagesPath": "/home/esdras/.nuget/packages/",
-      "outputPath": "/home/esdras/ToDoList/src/ToDoList.Application/obj/",
+      "projectPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Application\\ToDoList.Application.csproj",
+      "packagesPath": "C:\\Users\\Samuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/esdras/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Samuel\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -738,8 +738,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/esdras/ToDoList/src/ToDoList.Domain/ToDoList.Domain.csproj": {
-              "projectPath": "/home/esdras/ToDoList/src/ToDoList.Domain/ToDoList.Domain.csproj"
+            "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Domain\\ToDoList.Domain.csproj": {
+              "projectPath": "C:\\Users\\Samuel\\Desktop\\ToDoList\\src\\ToDoList.Domain\\ToDoList.Domain.csproj"
             }
           }
         }
@@ -796,7 +796,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

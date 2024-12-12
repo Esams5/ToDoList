@@ -1,6 +1,5 @@
 using System.Reflection;
 using ToDoList.Domain.Entities;
-using ToDoList.Infra.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Infra.Data.Context;
@@ -26,10 +25,10 @@ public class ToDoContext : DbContext
             optionsBuilder.UseMySql(_connectionString, ServerVersion.AutoDetect(_connectionString));
         }
     }
-    
-    public DbSet<User> Users { get; set; }
-    public DbSet<AssignmentList> AssignmentLists { get; set; }
-    public DbSet<Assignment> Assignments { get; set; }
+
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<AssignmentList> AssignmentLists { get; set; } = null!;
+    public DbSet<Assignment> Assignments { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
