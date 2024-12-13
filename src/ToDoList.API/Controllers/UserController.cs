@@ -23,7 +23,7 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
-
+    
     [Route("/api/users/create")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserViewModel userViewModel)
@@ -143,7 +143,7 @@ public class UserController : ControllerBase
         }
     }
     
-    
+    [Authorize]
     [HttpGet]
     [Route("/api/v1/users/get-all")]
     public async Task<IActionResult> GetUsers()
