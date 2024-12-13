@@ -29,8 +29,9 @@ public class UserService : IUserService
         if (exist != null)
             throw new DomainException("O email está em uso");
         var user = _mapper.Map<User>(userDto);
-        user.Password = _passwordHasher.HashPassword(user, user.Password);
+        
         user.Validate();
+        user.Password = _passwordHasher.HashPassword(user, user.Password);
         
         var userCreated = await _userRepository.CreateAsync(user);
         
