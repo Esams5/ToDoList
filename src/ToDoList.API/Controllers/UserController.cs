@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.ViewModels;
 using ToDoList.API.ViewModels.UserViewModel;
-using ToDoList.Application.DTO;
 using ToDoList.Application.Interfaces;
 using ToDoList.Domain.Entities;
 using ToDoList.Domain.Exceptions;

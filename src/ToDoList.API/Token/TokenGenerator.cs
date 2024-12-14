@@ -17,22 +17,25 @@ public class TokenGenerator : ITokenGenerator
     public string GenerateToken()
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        
+
         var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, _configuration["Jwt:Login"]),
+                new Claim(ClaimTypes.Name, _configuration["Jwt: Login"]),
                 new Claim(ClaimTypes.Role, "User"),
                 new Claim(ClaimTypes.NameIdentifier, "Id")
             }),
-            Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:Expiration"])),
+            Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:HoursToExpire"])),
+
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
+
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        
+
         return tokenHandler.WriteToken(token);
     }
 }

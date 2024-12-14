@@ -36,21 +36,21 @@ public class AuthenticateUserService : IAuthenticateUser
                 new Claim(ClaimTypes.Email, user.Email)
             }),
             Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials =
-                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
+    
     public async Task<AuthenticateLoginDTO> Authenticate(LoginDTO loginDto)
     {
         var loginExist = await _userRepository.GetByEmailAsync(loginDto.Email);
         if (loginExist == null)
-            throw new DomainException("Não foi encontrado na base de dados");
-        var result = _passwordHasher.VerifyHashedPassword(loginExist, loginDto.Password, loginDto.Password);
+            throw new DomainException("Não foi encontrdo cadastrado com esse email, por favor, insira um correto!");
+        
+        var result = _passwordHasher.VerifyHashedPassword(loginExist, loginExist.Password, loginDto.Password);
         if (result == PasswordVerificationResult.Failed)
-            throw new DomainException("Email ou senha incorretos");
+            throw new DomainException("Email e/ou senha estão incorretos, por favor, corríja-os!");
 
         return new AuthenticateLoginDTO
         {
