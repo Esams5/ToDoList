@@ -5,8 +5,8 @@ namespace ToDoList.Application.Interfaces;
 
 public interface IUserService
 {
-    Task<UserDTO> CreateUserAsync(User user);
-    Task<UserDTO> UpdateUserAsync(User user);
+    Task<UserDTO> CreateUserAsync(UserDTO userDto);
+    Task<UserDTO> UpdateUserAsync(UserDTO userDto);
     Task DeleteUserAsync(int userid);
     Task<UserDTO> GetUserAsync(int userid);
     Task<List<UserDTO>> GetUsersAsync();

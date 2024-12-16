@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.API.ViewModels;
 using ToDoList.API.ViewModels.UserViewModel;
+using ToDoList.Application.DTO;
 using ToDoList.Application.Interfaces;
 using ToDoList.Domain.Entities;
 using ToDoList.Domain.Exceptions;
@@ -29,7 +30,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var userDto = _mapper.Map<User>(userViewModel);
+            var userDto = _mapper.Map<UserDTO>(userViewModel);
             var userCreated = await _userService.CreateUserAsync(userDto);
             return Ok(new ResultViewModel
             {
@@ -55,7 +56,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var userDto = _mapper.Map<User>(userViewModel);
+            var userDto = _mapper.Map<UserDTO>(userViewModel);
             var userUpdate = await _userService.UpdateUserAsync(userDto);
             return Ok(new ResultViewModel
             {

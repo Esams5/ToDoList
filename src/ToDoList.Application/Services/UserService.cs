@@ -20,65 +20,71 @@ public class UserService : IUserService
         _mapper = mapper;
         _passwordHasher = passwordHasher;
     }
-
-
-    public async Task<UserDTO> CreateUserAsync(User userDto)
+    public async Task<UserDTO> UpdateUserAsync(UserDTO userDto)
     {
-        var exist = await _userRepository.GetByEmailAsync(userDto.Email);
+        var userExists = await _userRepository.GetByIdAsync(userDto.Id);
 
-        if (exist != null)
-            throw new DomainException("O email está em uso");
+        if (userExists == null)
+            throw new DomainException("Não existe usuário com o Id informado!");
+
         var user = _mapper.Map<User>(userDto);
         
         user.Validate();
         user.Password = _passwordHasher.HashPassword(user, user.Password);
-        
-        var userCreated = await _userRepository.CreateAsync(user);
-        
-        return _mapper.Map<UserDTO>(userCreated);
-    }
-
-    public async Task<UserDTO> UpdateUserAsync(User userDto)
-    {
-        var exist = await _userRepository.GetByIdAsync(userDto.Id);
-
-        if (exist == null)
-            throw new DomainException("Não existe esse Id");
-        var user = _mapper.Map<User>(userDto);
-        user.Password = _passwordHasher.HashPassword(user, user.Password);
-        user.Validate();
         
         var userUpdated = await _userRepository.UpdateAsync(user);
+
         return _mapper.Map<UserDTO>(userUpdated);
     }
 
-    public async Task DeleteUserAsync(int userid)
+    public async Task DeleteUserAsync(int id)
     {
-        await _userRepository.RemoveAsync(userid);
+        await _userRepository.RemoveAsync(id);
     }
 
-    public async Task<UserDTO> GetUserAsync(int userid)
+    public async Task<UserDTO> GetUserAsync(int id)
     {
-        var user = await _userRepository.GetByIdAsync(userid);
-        
+        var user = await _userRepository.GetByIdAsync(id);
+
         return _mapper.Map<UserDTO>(user);
     }
 
     public async Task<List<UserDTO>> GetUsersAsync()
     {
-        var users = await _userRepository.GetAllAsync();
-        return _mapper.Map<List<UserDTO>>(users);
+        var allUsers = await _userRepository.GetAllAsync();
+
+        return _mapper.Map<List<UserDTO>>(allUsers);
     }
 
     public async Task<UserDTO> GetEmailAsync(string email)
     {
         var user = await _userRepository.GetByEmailAsync(email);
+
         return _mapper.Map<UserDTO>(user);
     }
 
-    public async Task<List<UserDTO>> SearchEmailAsync(string username)
+    public async Task<List<UserDTO>> SearchEmailAsync(string email)
     {
-        var users = await _userRepository.SearchByEmailAsync(username);
-        return _mapper.Map<List<UserDTO>>(users);
+        var allUsers = await _userRepository.SearchByEmailAsync(email);
+
+        return _mapper.Map<List<UserDTO>>(allUsers);
+    }
+
+
+    public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
+    {
+        var userExist = await _userRepository.GetByEmailAsync(userDto.Email);
+
+        if (userExist != null)
+            throw new DomainException("O email já está em uso!");
+
+        var user = _mapper.Map<User>(userDto);
+        
+        user.Validate();
+        user.Password = _passwordHasher.HashPassword(user, user.Password);
+
+        var userCreated = await _userRepository.CreateAsync(user);
+
+        return _mapper.Map<UserDTO>(userCreated);;
     }
 }

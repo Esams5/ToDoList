@@ -8,35 +8,37 @@ namespace ToDoList.Infra.Data.Repositories;
 public class AssignmentListRepository : BaseRepository<AssignmentList>, IAssignmentListRepository
 {
 
-    private readonly ToDoContext _context;
-
+    private readonly  ToDoContext _context;
+    
     public AssignmentListRepository(ToDoContext context) : base(context)
     {
         _context = context;
     }
 
-    public async Task<AssignmentList> GetByNameAsync(string name)
+    public virtual async Task<AssignmentList> GetByName(string name)
     {
-        var assignment = await _context.AssignmentLists.Where(
-                x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+        var assigmentList = await _context.AssignmentLists.Where
+            (
+                x => x.Name.ToLower().Contains(name.ToLower())
+            )
             .AsNoTracking()
             .ToListAsync();
-        
-        return assignment.FirstOrDefault();
-        
+
+        return assigmentList.FirstOrDefault();
     }
 
-    public async Task<AssignmentList> GetByNameAndIdAsync(string name, int id)
+    
+    public async Task<AssignmentList> GetByNameAndId(string name, int userId)
     {
         var assignmnetList = await _context.Set<AssignmentList>()
             .AsNoTracking()
-            .Where(x => x.Name == name && x.UserId == id)
+            .Where(x => x.Name == name && x.UserId == userId)
             .ToListAsync();
 
         return assignmnetList.FirstOrDefault();
     }
 
-    public async Task<List<AssignmentList>> SearchByNameAsync(string name)
+    public virtual async Task<List<AssignmentList>> SearchByName(string name)
     {
         var allAssigmentLists = await _context.AssignmentLists.Where
             (
