@@ -13,7 +13,8 @@ public class AssignmentListMap : IEntityTypeConfiguration<AssignmentList>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .IsRequired();
+            .UseMySqlIdentityColumn()
+            .HasColumnType("BIGINT");
 
         builder.Property(x => x.Name)
             .IsRequired()

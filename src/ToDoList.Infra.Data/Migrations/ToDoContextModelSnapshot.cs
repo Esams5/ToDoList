@@ -30,8 +30,8 @@ namespace ToDoList.Infra.Data.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int?>("AssignmentListId")
-                        .HasColumnType("int");
+                    b.Property<long?>("AssignmentListId")
+                        .HasColumnType("BIGINT");
 
                     b.Property<string>("Concluded")
                         .IsRequired()
@@ -64,11 +64,11 @@ namespace ToDoList.Infra.Data.Migrations
 
             modelBuilder.Entity("ToDoList.Domain.Entities.AssignmentList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("BIGINT");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()

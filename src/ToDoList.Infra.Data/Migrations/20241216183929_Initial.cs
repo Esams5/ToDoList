@@ -38,7 +38,7 @@ namespace ToDoList.Infra.Data.Migrations
                 name: "AssignmentList",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "BIGINT", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -63,7 +63,7 @@ namespace ToDoList.Infra.Data.Migrations
                     Id = table.Column<long>(type: "BIGINT", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<long>(type: "BIGINT", nullable: false),
-                    AssignmentListId = table.Column<int>(type: "int", nullable: true),
+                    AssignmentListId = table.Column<long>(type: "BIGINT", nullable: true),
                     Description = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Concluded = table.Column<string>(type: "VARCHAR(5)", nullable: false, defaultValue: "False")

@@ -30,12 +30,12 @@ public class AssignmentListRepository : BaseRepository<AssignmentList>, IAssignm
     
     public async Task<AssignmentList> GetByNameAndId(string name, int userId)
     {
-        var assignmnetList = await _context.Set<AssignmentList>()
+        var assignmentList = await _context.Set<AssignmentList>()
             .AsNoTracking()
             .Where(x => x.Name == name && x.UserId == userId)
             .ToListAsync();
 
-        return assignmnetList.FirstOrDefault();
+        return assignmentList.FirstOrDefault();
     }
 
     public virtual async Task<List<AssignmentList>> SearchByName(string name)

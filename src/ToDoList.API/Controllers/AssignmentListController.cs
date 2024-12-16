@@ -29,9 +29,13 @@ namespace ToDoList.API.Controllers
         {
             try
             {
+                Console.WriteLine("Iniciando Create");
                 var assignmentListDto = _mapper.Map<AssignmentListDTO>(createAssignmentListViewModel);
-                
+                Console.WriteLine("Criado");
+
+                Console.WriteLine("Iniciando de verdade");
                 var assignmentListCreated = await _assignmentListService.CreateAsync(assignmentListDto);
+                Console.WriteLine("Criado de verdade");
                 return Ok(new ResultViewModel
                 {
                     Message = "Lista de tarefa criada com sucesso",

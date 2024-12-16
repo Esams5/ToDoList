@@ -1,4 +1,5 @@
 using System.Data;
+using System.Threading.Channels;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ToDoList.Application.DTO;
@@ -25,13 +26,21 @@ public class AssignmentListService : IAssignmentListService
     public async Task<AssignmentListDTO> CreateAsync(AssignmentListDTO assignmentListDto)
     {
         var assignmetListExist = await _assignmentListRepository.GetByNameAndId(assignmentListDto.Name, GetUserId());
-        if (assignmetListExist != null)
-            throw new DomainException("Já existe uma lista de tarefa cadastrada com esse nome!");
-        
+        Console.WriteLine(assignmetListExist.UserId);
+        /*if (assignmetListExist != null)
+            throw new DomainException("Já existe uma lista de tarefa cadastrada com esse nome!");*/
+        if (assignmetListExist.UserId == null)
+        {
+            Console.WriteLine("Deu erro");
+            Console.WriteLine("Deu erro");
+        }
+
+
         var assignmentList = _mapper.Map<AssignmentList>(assignmentListDto);
         assignmentList.Validate();
-
+        
         assignmentList.UserId = GetUserId();
+        
         
         var assignmentListCreated = await _assignmentListRepository.CreateAsync(assignmentList);
         return _mapper.Map<AssignmentListDTO>(assignmentListCreated);
