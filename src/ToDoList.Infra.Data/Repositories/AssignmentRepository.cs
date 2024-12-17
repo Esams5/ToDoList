@@ -37,7 +37,7 @@ public class AssignmentRepository : BaseRepository<Assignment>, IAssignmentRepos
     public async Task<List<Assignment>> GetConcluedAsync()
     {
         return await _context.Assignments.Where(
-            x => x.Concluded == "true")
+            x => x.Concluded == "S")
             .AsNoTracking()
             .ToListAsync();
     }

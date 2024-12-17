@@ -12,7 +12,7 @@ using ToDoList.Infra.Data.Context;
 namespace ToDoList.Infra.Data.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20241216183929_Initial")]
+    [Migration("20241217172507_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

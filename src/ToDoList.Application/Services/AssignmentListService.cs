@@ -25,27 +25,36 @@ public class AssignmentListService : IAssignmentListService
 
     public async Task<AssignmentListDTO> CreateAsync(AssignmentListDTO assignmentListDto)
     {
+        
         var assignmetListExist = await _assignmentListRepository.GetByNameAndId(assignmentListDto.Name, GetUserId());
-        Console.WriteLine(assignmetListExist.UserId);
-        /*if (assignmetListExist != null)
-            throw new DomainException("Já existe uma lista de tarefa cadastrada com esse nome!");*/
-        if (assignmetListExist.UserId == null)
+
+        
+        if (assignmetListExist != null)
         {
-            Console.WriteLine("Deu erro");
-            Console.WriteLine("Deu erro");
+            if (assignmetListExist.UserId == null)
+            {
+                Console.WriteLine("Erro: UserId está nulo");
+            }
+            else
+            {
+                throw new DomainException("Já existe uma lista de tarefa cadastrada com esse nome!");
+            }
         }
 
-
+        
         var assignmentList = _mapper.Map<AssignmentList>(assignmentListDto);
         assignmentList.Validate();
+
         
         assignmentList.UserId = GetUserId();
-        
+
         
         var assignmentListCreated = await _assignmentListRepository.CreateAsync(assignmentList);
+
+        
         return _mapper.Map<AssignmentListDTO>(assignmentListCreated);
     }
-    
+
     public async Task<AssignmentListDTO> Update(AssignmentListDTO assignmentListDto)
     {
         var assignmentListExist = await _assignmentListRepository.GetByIdAsync(assignmentListDto.Id);
@@ -97,7 +106,7 @@ public class AssignmentListService : IAssignmentListService
     
     private int GetUserId()
     {
-        var claim = _httpContextAccessor?.HttpContext?.User.Claims.FirstOrDefault(
+        var claim = _httpContextAccessor.HttpContext!.User.Claims.FirstOrDefault(
             x => x.Type == "Id");
         if (claim == null)
             throw new DomainException("Usuário inválido!");

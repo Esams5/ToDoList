@@ -40,8 +40,9 @@ public class Assignment : Base
         {
             foreach(var error in validation.Errors)
                 _errors.Add(error.ErrorMessage);
+            throw new DomainException("Alguns campos incorretos." + _errors);
         }
-        throw new DomainException("Alguns campos incorretos." + _errors);
+        
 
         return true;
     }

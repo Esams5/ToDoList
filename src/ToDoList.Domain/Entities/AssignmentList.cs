@@ -33,8 +33,9 @@ public class AssignmentList : Base
         {
             foreach (var error in validation.Errors)
                 _errors.Add(error.ErrorMessage);
+            throw new DomainException("Alguns campos estão incorretos" + _errors);
         }
-        throw new DomainException("Alguns campos estão incorretos" + _errors);
+        
 
         return true;
     }
