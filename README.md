@@ -32,7 +32,7 @@ Instalação
 
     Clone o repositório:
 
-git clone https://github.com/usuario/todolist-api.git
+git clone git@github.com:Esams5/ToDoList.git
 cd todolist-api
 
 Restaure as dependências:
