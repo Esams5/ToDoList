@@ -22,7 +22,7 @@ namespace ToDoList.API.Controllers
             _mapper = mapper;
         }
 
-        
+        [Authorize]
         [Route("/api/v1/assignmentList/create")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateAssignmentListViewModel createAssignmentListViewModel)

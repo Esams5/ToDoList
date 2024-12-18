@@ -49,7 +49,7 @@ public class UserController : ControllerBase
         }
     }
 
-    
+    [Authorize]
     [HttpPut]
     [Route("/api/v1/users/update")]
     public async Task<IActionResult> Update([FromBody] UpdateUserViewModel userViewModel)
@@ -76,7 +76,7 @@ public class UserController : ControllerBase
         }
     }
 
-    
+    [Authorize]
     [HttpDelete]
     [Route("/api/v1/users/remove{id}")]
     public async Task<IActionResult> Remove(int id)
@@ -110,7 +110,7 @@ public class UserController : ControllerBase
         }
     }
 
-    
+    [Authorize]
     [HttpGet]
     [Route("/api/v1/users/get/{id}")]
     public async Task<IActionResult> GetUser(int id)
@@ -176,7 +176,7 @@ public class UserController : ControllerBase
         }
     }
 
-    
+    [Authorize]
     [HttpGet]
     [Route("/api/v1/users/get-by-email")]
     public async Task<IActionResult> GetEmail([FromQuery] string email)
@@ -211,7 +211,7 @@ public class UserController : ControllerBase
         
     }
 
-    
+    [Authorize]
     [HttpGet]
     [Route("/api/v1/users/search-by-email")]
     public async Task<IActionResult> SearchByEmail([FromQuery] string email)
