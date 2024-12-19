@@ -80,11 +80,15 @@ A aplicação possui endpoints para testar todas as funcionalidades, incluindo o
     "name": "Teste",
     "email": "teste@eu.com",
     "password": "Teste@123"
-  },
+  }
+
+  "Autenticação": "Bearer {token}"
+
   "AssignmentList": {
     "name": "Exemplo",
     "userId": 2
-  },
+  }
+
   "Assignment": {
     "description": "string",
     "userId": 2,
@@ -94,5 +98,8 @@ A aplicação possui endpoints para testar todas as funcionalidades, incluindo o
     "deadline": "2024-12-19T15:26:36.308Z"
   }
 }
+```
+
+
 ```
 
